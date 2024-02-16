@@ -34,18 +34,20 @@ print_last_status() print -u2 "[E:$?]"
 precmd_functions+=(print_last_status)
 
 source ~/gitRepos/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/gitRepos/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
 # Automatically populate the first historical command
 #autoload predict-on
 #predict-on
 
-function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/-- N --}/(main|viins)/-- I --}"
-    RPS2=$RPS1
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
+#function zle-line-init zle-keymap-select {
+#    RPS1="${${KEYMAP/vicmd/-- N --}/(main|viins)/-- I --}"
+#    RPS2=$RPS1
+#    zle reset-prompt
+#}
+#
+#zle -N zle-line-init
+#zle -N zle-keymap-select
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate

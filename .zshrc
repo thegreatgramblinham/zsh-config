@@ -2,8 +2,10 @@
 # ==================
 autoload -Uz promptinit
 promptinit
-# enable command-subsitution in PS1
+
+# Enable command-subsitution in PS1
 setopt PROMPT_SUBST
+# Set our custom prompt
 NL=$'\n'
 PS1='$NL%B%F{cyan}%3~%f%b$NL%B%(?.%F{green}.%F{red})%(!.#.>)%f%b '
 
@@ -28,26 +30,25 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt SHARE_HISTORY
 
 # Use modern completion system
-#autoload -Uz compinit
-#compinit
+autoload -Uz compinit
+compinit
+
+# Show the exit code of the last command.
 print_last_status() print -u2 "[E:$?]"
 precmd_functions+=(print_last_status)
 
+# Load the plugin for autosuggestions from local git repo
 source ~/gitRepos/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/gitRepos/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-# Automatically populate the first historical command
-#autoload predict-on
-#predict-on
+# Show mode indicators for vi keybindings
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- N --}/(main|viins)/-- I --}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
 
-#function zle-line-init zle-keymap-select {
-#    RPS1="${${KEYMAP/vicmd/-- N --}/(main|viins)/-- I --}"
-#    RPS2=$RPS1
-#    zle reset-prompt
-#}
-#
-#zle -N zle-line-init
-#zle -N zle-keymap-select
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -197,4 +198,5 @@ export FZF_DEFAULT_COMMAND="find . -not -path '**/.git/*'"
 GPG_TTY=$(tty)
 export GPG_TTY
 
-
+# Make sure that vi keybindings are always on
+bindkey -v

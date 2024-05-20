@@ -84,10 +84,10 @@ alias dfe='command dotfile-export-config-to-git'
 alias dfd='command dotfile-deploy-config'
 
 # ls Aliases
-alias la='command file-index-listing-select'
-alias lal='command file-index-listing-select | less -R'
-alias ll='command file-index-listing-select'
-alias lll='command file-index-listing-select | less -R'
+alias la='command ls -al'
+alias lal='command ls -al | less -R'
+alias ll='command ls -al'
+alias lll='command ls -al | less -R'
 
 # cd Aliases
 alias ..='cd ..'
